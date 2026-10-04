@@ -178,6 +178,121 @@ vision even while facilitating sales.
 - Do we have / can we get lender/microfinance partners? (Decides if financing-referral is
   near-term or phase-2.)
 
+### 1c. Partner discussion (2026-10-04) — PHASING (proposed, pending both founders' agreement)
+
+User sent the §1b model to their co-founder. Her feedback + our responses:
+
+- **"Pay to list won't work from day one — nobody knows us."** → AGREED. Cold-start problem.
+  **Launch RENTALS ONLY**, perfect them, add sale listings later.
+- **Her idea: Basic vs Pro tiers.** Basic (free) = list rentals. Pro (subscription) = unlock
+  sale listings. → Adopted, with tweaks:
+  - **Verification / verified badge is NEVER paywalled** (Security = priority #1; Basic gets it).
+  - Pro must sell *value*, not just permission: sale listings + featured placement + more
+    listings + lead/viewing analytics + agency profile.
+  - **Founding-partner offer:** first owners/agencies get Pro free for 3–6 months, then convert.
+- **"How does a client reach the owner if numbers are masked?"** → Bolt/Uber pattern: in-app chat
+  → "Call owner" routed via a Huntouse proxy number (neither sees the real number) → book the
+  viewing in-app. Masking isn't leak-proof (numbers get swapped at viewings); the real protection
+  is the **signed listing agreement + our records** (chats, booked viewings) proving we introduced
+  the buyer. Proxy calling costs per minute (e.g. Africa's Talking) → later phase.
+- **"Expound on financing (#3)."** Two steps:
+  1. **"Can I afford this?"** calculator on sale listings (income, deposit, job type → rough loan
+     range). **Needs no partner** — can ship first.
+  2. **"Get pre-qualified"** → with consent, lead handed to a partner lender; lender pays
+     referral fee per qualified lead / funded loan. Owners get pre-qualified buyers (fewer
+     time-wasters).
+- **"How do we verify the lenders' / buyers' eligibility?"** → The **lender** does buyer
+  eligibility (CRB, KYC, income) — their job and regulated risk, not ours. Our check is on the
+  lender: only partner with regulated ones — CBK-licensed banks & microfinance banks,
+  SASRA-regulated SACCOs (SACCOs likely the best fit; many Kenyans finance land/homes via them).
+- **Partners:** co-founder will ask contacts from **Rideright** (may be vehicle/asset finance —
+  still useful for intros to a bank/SACCO with a property-loan product).
+
+**Proposed phasing:**
+| Phase | Scope | Revenue |
+|---|---|---|
+| 1 | Rentals only; free listing for hosts; verification free | Fee on in-app rent/deposit payments (M-Pesa / card escrow) |
+| 2 | Sale listings via **Pro** subscription (founding partners free first); affordability calculator | Pro subscriptions + featured listings |
+| 3 | Lender partners (pre-qualification), call masking, listing agreements | Referral fees + success commission |
+
+**Build impact now:** none — we're already building consumer + rental first. Keep the
+**rent/sale listing-type flag** in the data model; defer sale screens (Buy a home rework,
+financing, masking) to phase 2–3.
+
+**Risk: "Pro subscribers pay but their listing doesn't sell / get seen" (raised 2026-10-04).**
+Answers agreed in discussion (not yet signed off by both founders):
+1. Pro sells **visibility, not sales** — and proves it with the lead-stats dashboard
+   (views, saves, inquiries, viewing requests, vs. a Basic baseline).
+2. **Lead guarantee as credit, not cash:** e.g. < N inquiries in 60 days → next month free.
+3. **Help it sell:** listing quality score, price feedback vs. comparable listings,
+   low-engagement alerts.
+4. **Don't sell Pro before demand exists:** roll Pro out area by area once buyer traffic
+   (built by rentals) is there; cap featured slots per area.
+5. **Cheaper entry:** monthly cancel-anytime; one-off "boost" for single listings; later a
+   lower subscription + success fee (ties to phase-3 listing agreements).
+6. **Founding-partner free period = measurement:** collect Pro vs Basic lead numbers to set
+   the price, the guarantee threshold, and the sales pitch.
+**Build impact:** the listings data model must track per-listing **views / saves / inquiries
+/ viewing requests from day one** (needed for lead stats + the guarantee).
+
+**"Jiji problem": sellers pay for Pro, get no buyers, drop back to free — how do we earn?
+(discussed 2026-10-04; founders still debating listings — not signed off).**
+Lesson from Jiji-style classifieds: they survive churn through seller **volume**, a
+deliberately **limited free tier** (few free ads, expiry, lower placement), and by making
+**professionals** (dealers/agencies who list all year) the real paying customers. Huntouse
+does NOT depend on Pro subscriptions alone — revenue mix:
+
+| # | Stream | Who pays | Hurt by "paid, no buyers"? |
+|---|---|---|---|
+| 1 | **Rental transaction fee** (phase 1, main engine) | Small fee on deposit / first rent via in-app escrow, released on move-in | No — earn only when a rental happens |
+| 2 | **Pro for agencies & multi-unit landlords** | Professionals listing all year | Low — they keep listing, so they keep paying |
+| 3 | **One-off boosts** for individual sellers | Single-property owners | Expected churn — pay once, no subscription promise |
+| 4 | **Success fee on sales** (phase 3) | Seller, only when a Huntouse-introduced buyer buys (signed listing agreement) | No — no sale, no fee |
+| 5 | **Financing referral fees** (phase 3) | Banks / SACCOs per qualified lead or funded loan | No — seller pays nothing |
+| 6 | **Service referrals** (later) | Movers, cleaners, internet installers | No |
+
+- **Free-tier limit:** free hosts get **1–2 active listings** (enough for a private landlord);
+  agents / apartment blocks with more need Pro. **Verification always free.**
+- Individual sellers dropping back to free is fine — that's what boosts (#3) and the success
+  fee (#4) are for. Subscription revenue comes from professionals.
+- Root cause of "no buyers" is **demand**, not pricing → rentals first (traffic), Pro only per
+  area once buyers are active, success fee + financing once proven.
+- One-liner for the co-founder: *"We don't sell hope to one-time sellers. We earn per rental
+  transaction, charge professionals who list all year, and take a success fee on sales only
+  when we actually bring a buyer."*
+- **Build impact:** listings need an **active/inactive count per host** (free-tier limit),
+  a **boost/featured** flag with expiry, and an **attribution trail** (inquiry → viewing →
+  deal) to support the success fee.
+
+**Agencies & developers on sale listings (discussed 2026-10-04 — not signed off).**
+Agencies are the core *paying* customers for sales: they list all year, already have marketing
+budgets, and already pay BuyRentKenya / Property24. Build Pro around them, not one-off sellers.
+
+| | **Developers** (e.g. Tsavo Homes) | **Agencies / brokers** |
+|---|---|---|
+| Relationship to property | **Own it** → they ARE "the one in charge" | Act **on behalf of** an owner |
+| Typically sell | Off-plan / new apartments, whole projects | Resale houses, land, apartments |
+| Vision fit | Perfect (direct) | Yes — only if verified AND authorized |
+
+- **Trust rule (the Tsavo lesson):** agent KYC (ID + EARB license + agency) **plus a mandate
+  per sale listing** — mandate letter / listing agreement proving the owner authorized them.
+  Badges: **"Developer — owns this property"** vs **"Verified agent — authorized by owner"**.
+  Duplicate listings (same house via 3–4 agents is common in Kenya) → prefer signed/exclusive
+  mandate, flag duplicates. Competitors don't enforce this → differentiator.
+- **Agency Pro sells:** tiers by active listings + agent seats (e.g. Starter 1 agent/20
+  listings, Agency 5 agents/100); agency profile page (listings, team, reviews); **developer
+  project pages** (unit types, prices, **installment payment plans** — financing without a
+  bank); lead inbox / viewing bookings / stats; featured projects & listings.
+- **Revenue:** steady subscription; later a referral share of their sales commission for
+  Huntouse-introduced buyers.
+- **Onboarding path:** many agencies also manage **rental blocks** → phase 1: onboard them for
+  rentals (free verification, free up to the listing limit) — fixes thin inventory and builds
+  the relationship; phase 2: upsell **agency Pro** for sales/projects (founding agencies free
+  first). Answers the co-founder's "nobody pays an unknown app on day one".
+- **Build impact:** Phase B agent verification stays as planned but model an **agency** that
+  can have multiple agent members later; listings need `rent|sale`, `developer|agent` lister
+  type, and a **mandate document per sale listing**; "project with units" listings = phase 2.
+
 ---
 
 ## 2. Figma access situation (IMPORTANT)
@@ -289,9 +404,12 @@ PUBLIC profile exists — what's missing is the agent's OWN dashboard.
 3. ~~Project location~~ → RESOLVED: fresh Expo app at `~/projects/huntouse`; backend at
    `~/Desktop/huntouse-api`.
 4. ~~Expo vs bare React Native~~ → RESOLVED: Expo (SDK 57, Expo Router, CNG).
-5. **Sales monetization (see §1b):** subscription/portal revenue, per-deal commission, or both?
-6. **Lender/microfinance partners:** do we have / can we get any? (Decides whether the financing
-   pre-qualification + referral-fee play is near-term or phase-2.)
+5. **Sales monetization (see §1b, §1c):** leaning → sales deferred to phase 2 behind a **Pro**
+   subscription (co-founder's Basic/Pro idea), commission + referral fees in phase 3.
+   Needs both founders' sign-off. Also open: Pro price, founding-partner free period length.
+6. **Lender/microfinance partners:** none yet. Co-founder asking Rideright contacts; target
+   CBK-licensed banks / microfinance banks / SASRA SACCOs with property-loan products.
+   Financing referral = phase 3; the affordability calculator can ship in phase 2 without one.
 
 **Default if user says "just go":** fresh Expo app · both rental types · rentals = in-app
 M-Pesa escrow, sales = lead/financing (NOT in-app purchase) · role-aware nav · start with
@@ -354,10 +472,42 @@ consumer slice.
 - All Clerk users and DB rows were wiped on request (2026-10-04) so the user can test fresh.
 - **Clerk password minimum still 15** — user chose 8; must be changed in the Clerk dashboard.
 
-**Not committed yet** — neither repo (huntouse on `master`, huntouse-api) is committed.
+**Git:** app repo committed (`main`, "first commit" 191cb2e). **huntouse-api still uncommitted**
+(all Phase 2 work: `app/api/`, `lib/`, `prisma.config.ts`, …).
 
-**Next up:** fix webhook delivery, phone test of profile save, commit both repos, then Home
-(kit 28–29) and Phase 3 (roles in app, owner/agent verification, admin dashboard).
+8. **Laptop power loss (2026-10-04):** dev servers died; user restarting them (API `pnpm dev` on
+   3001 + ngrok — check whether the ngrok URL changed → update Clerk webhook + app env).
+9. **Monetization phasing discussed with co-founder** → logged in §1c (rentals first).
+
+10. **Phase B (roles & host verification) BUILT (2026-10-04)** — see §10 "Host verification".
+    Backend: verification tables + R2 uploads + applicant API + admin dashboard (web) +
+    `pnpm admin:grant`. App: `host/` flow (role → identity → ownership/agency → review →
+    status) + Home "Become a host" card. Verified: applicant API end-to-end with real R2
+    uploads; admin sign-in, queue, document view (signed URLs) and approve in a real browser;
+    role granted in DB. Found + fixed: approval crashed when Clerk was unreachable → roles sync
+    now retries and self-heals (`clerkRolesStale`). Test users/files cleaned up afterwards.
+    User chose NOT to rotate the exposed R2/Neon credentials for now (rotate before production).
+    Defaults used: agents = ID + EARB number + certificate + agency (no KRA PIN); selfie checked
+    by an admin by eye (automated face match e.g. Smile ID = later).
+    **To do by user:** restart the API dev server (new Prisma client), run
+    `pnpm admin:grant <your email>` in huntouse-api, then test the flow on the phone.
+11. **Phone-test bugs fixed (2026-10-04):**
+    - *Endless `GET /api/verifications` loop* — effects depended on `useAuth().getToken`, which
+      changes identity every render. Fix: `src/hooks/use-get-token.ts` (`useGetToken()` =
+      stable callback over `useClerk().session.getToken()`); used in Home, host/index,
+      host/status. **Rule: never put `useAuth().getToken` in effect deps — use `useGetToken()`.**
+    - *"Upload failed (HTTP 403)"* — the presigned PUT signed `Content-Length`, which React
+      Native `fetch` + Blob doesn't send reliably → signature mismatch. Fix: server signs
+      content-type only (size still enforced at submit via HEAD = declared size); app uploads
+      with `expo-file-system` `new File(uri).upload(url, { httpMethod: 'PUT', uploadType:
+      BINARY_CONTENT })`. Verified: matching type → 200, wrong type → 403.
+12. **Phase B confirmed on a real phone (2026-10-04):** piusdev67@gmail.com (Expo app) submitted
+    host verification with real camera uploads → hardhaven4@gmail.com approved it in `/admin`
+    → app showed "You're verified". Phase B is DONE.
+
+**Next up:** user restarts servers → lower Clerk password min to 8 → phone test (sign-up,
+profile save, Google/Apple) → commit huntouse-api → Home (kit 28–29) → Phase 3 (roles in app,
+owner/agent verification, admin dashboard).
 
 ---
 
@@ -424,9 +574,70 @@ user cosmix's admin key should be considered leaked and rotated.)
 - Phase 3: role-aware app navigation (Seeker tabs vs Hosting) + owner/agent verification
   (KYC upload → pending → admin approves → role granted).
 
+**Host verification (Phase B, built 2026-10-04)**
+- DB: `VerificationRequest` (kind OWNER|AGENT, status DRAFT→PENDING→APPROVED|REJECTED, idType,
+  **idNumberHash** = HMAC-SHA256 with `ID_HASH_PEPPER` + `idNumberLast4` — the full ID number is
+  never stored; admins read it from the photo; same hash on another account = fraud warning),
+  `earbNumber`, `agencyName/Location`, `consentAt` (Kenya DPA), reviewer + `rejectionReason`;
+  `VerificationDocument` (kind ID_FRONT|ID_BACK|SELFIE|OWNERSHIP_PROOF|AGENT_LICENSE, R2
+  `storageKey`, type, size; one per kind); `Agency` (created on agent approval; users have
+  optional `agencyId` → multi-agent agencies later); `User.clerkRolesStale`.
+- Required docs: ID front + selfie (+ ID back unless passport) + ownership proof (owner) /
+  EARB certificate (agent). Images only for ID/selfie; PDF allowed for ownership/licence; ≤10 MB.
+- Uploads: app asks `POST /api/verifications/:id/documents` → presigned PUT (content-type AND
+  exact byte length are signed) → PUTs the file straight to R2. Submit HEADs every object to
+  confirm it exists with the declared size. Keys: `kyc/<userId>/<requestId>/<kind>-<uuid>`.
+- Applicant API (`lib/applicant.ts`, `lib/verification.ts`): `GET/POST /api/verifications`
+  (POST resumes the open request for that kind), `GET/PATCH /api/verifications/:id`
+  (editable only in DRAFT/REJECTED), `POST …/documents`, `POST …/submit` (`consent: true`).
+- Admin (web, in huntouse-api): `/admin` queue (pending oldest-first, tabs), `/admin/
+  verifications/:id` (details, duplicate-ID warning, docs via 5-min signed URLs, Approve /
+  Reject-with-reason as server actions). `proxy.ts` requires sign-in on `/admin(.*)`; the ADMIN
+  role is checked in `lib/admin.ts` (non-admins get 404). Sign-in page `/sign-in` (Clerk
+  `<SignIn/>`, `NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in`). Root layout has `ClerkProvider`.
+- **Never edit `roles` by hand (Prisma Studio / SQL).** A Studio edit typed as `{ADMIN}`
+  (Postgres array syntax; Studio wants JSON `["SEEKER","ADMIN"]`) saved `roles = NULL` for
+  piusdev67@gmail.com (2026-10-04, repaired). Hand edits also skip the Clerk mirror. Migration
+  `user_roles_required` adds `CHECK (roles IS NOT NULL AND cardinality(roles) >= 1)` so the DB
+  now refuses that. Current admin: **hardhaven4@gmail.com** (SEEKER + ADMIN; web dashboard). piusdev67@gmail.com = app test seeker (admin revoked).
+- **Admins are granted only via `pnpm admin:grant <email> [--revoke]`** (`scripts/grant-admin.mts`,
+  run with tsx; `.mts` because the package is CJS and the script uses top-level await).
+- Approve: transaction sets APPROVED + adds role (+ creates Agency for agents) + marks
+  `clerkRolesStale`, then `syncRolesToClerk` (3 retries, never throws; failure leaves the flag
+  and `ensureUser` retries on the user's next request). The app reads roles from the API, so a
+  lagging Clerk mirror is harmless.
+- App: `src/services/verification.ts`, `src/components/host/{document-tile,host-request}.tsx`,
+  routes `src/app/host/{_layout,index,identity,ownership,agency,review,status}.tsx` (signed-in
+  group). Camera (`launchCameraAsync`, front camera for selfie) + gallery + PDF via
+  `expo-document-picker`; `cameraPermission` added to the image-picker plugin. `WizardScreen`
+  gained `backFallback` + keyboard insets. Home shows a host card (Become a host / under review /
+  action needed / verified).
+- Dev note: after `prisma generate` the running `pnpm dev` keeps the OLD client (cached on
+  `globalThis` in `lib/prisma.ts`) → restart the dev server after schema changes. The API now
+  runs on **port 3000** (`next dev -p 3000`); ngrok → `localhost:3000`, same URL.
+- Not built yet: notifications on approve/reject, admin audit log, document retention/deletion
+  policy, automated face match, per-listing ownership proof / sale mandates (with listings).
+
 **Env files (git-ignored):** app `huntouse/.env.local` = `EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY`,
 `EXPO_PUBLIC_API_URL`. API `huntouse-api/.env.local` = `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`,
-`CLERK_SECRET_KEY`, `DATABASE_URL`, `CLERK_WEBHOOK_SIGNING_SECRET`.
+`CLERK_SECRET_KEY`, `DATABASE_URL`, `CLERK_WEBHOOK_SIGNING_SECRET`, `R2_ACCOUNT_ID`,
+`R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, `ID_HASH_PEPPER` (random, generated
+locally — never change it or existing ID hashes stop matching), `NEXT_PUBLIC_CLERK_SIGN_IN_URL`.
+
+**KYC document storage = Cloudflare R2** (set up 2026-10-04): private bucket `huntouse-kyc`
+(Standard class, public access OFF), account API token scoped to that bucket only with
+**Object Read & Write**. Access pattern: S3 SDK (`@aws-sdk/client-s3` +
+`@aws-sdk/s3-request-presigner`, endpoint `https://<account>.r2.cloudflarestorage.com`,
+region `auto`) — app uploads via short-lived presigned PUT, admins view via short-lived
+presigned GET. Verified: signed upload/read 200, unsigned read refused, delete works.
+R2 keys live in `~/Desktop/r2` (key names there: `aceesskeyid`, `secretaccesskey`,
+`tokenvaue`, + endpoint line).
+
+**⚠️ Secret-handling rule (learned the hard way):** never `cat`/`source` env or secrets files —
+`DATABASE_URL` contains `&`, so `. ./.env.local` splits it and prints it. Read them only with a
+script that prints key NAMES. On 2026-10-04 the R2 keys and the Neon DATABASE_URL were
+accidentally printed in a session → user asked to **roll the R2 token and reset the Neon
+`neondb_owner` password**, then re-copy into `huntouse-api/.env.local`.
 
 **Secrets location:** `~/Desktop/secrets` (NOT in any repo). Contains Expo + Next publishable
 keys, `CLERK_SECRET_KEY`, `DATABASE_URL` (Neon, now the **direct** non-pooled URL — fine for

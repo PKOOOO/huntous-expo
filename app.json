@@ -36,7 +36,8 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "Huntouse uses your photos so you can add a profile picture."
+          "photosPermission": "Huntouse uses your photos so you can add a profile picture and verification documents.",
+          "cameraPermission": "Huntouse uses the camera to photograph your ID and take a selfie for host verification."
         }
       ],
       "@clerk/expo",

@@ -86,6 +86,7 @@ function RootStack() {
       <Stack.Protected guard={signedIn}>
         <Stack.Screen name="profile-setup" options={{ gestureEnabled: false }} />
         <Stack.Screen name="home" options={{ gestureEnabled: false }} />
+        <Stack.Screen name="host" />
       </Stack.Protected>
     </Stack>
   );

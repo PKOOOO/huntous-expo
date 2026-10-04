@@ -1,3 +1,4 @@
+import { type Href } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { type ReactNode } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -16,6 +17,8 @@ type WizardScreenProps = {
   footer: ReactNode;
   /** Set false when the body lays itself out to fill the space (property-type bubbles). */
   scroll?: boolean;
+  /** Where the back button goes when there is no history. */
+  backFallback?: Href;
   children: ReactNode;
 };
 
@@ -27,6 +30,7 @@ export function WizardScreen({
   subtitle,
   footer,
   scroll = true,
+  backFallback = '/sign-in',
   children,
 }: WizardScreenProps) {
   const header = title ? (
@@ -42,7 +46,7 @@ export function WizardScreen({
     <SafeAreaView style={styles.container} edges={['top']}>
       <StatusBar style="dark" />
       <View style={styles.navBar}>
-        <BackButton fallback="/sign-in" />
+        <BackButton fallback={backFallback} />
         {progress !== undefined && (
           <View
             style={styles.track}
@@ -63,6 +67,7 @@ export function WizardScreen({
           style={styles.body}
           contentContainerStyle={styles.bodyContent}
           keyboardShouldPersistTaps="handled"
+          automaticallyAdjustKeyboardInsets
           showsVerticalScrollIndicator={false}>
           {header}
           {children}
