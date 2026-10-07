@@ -51,7 +51,7 @@ export default function PropertyTypesScreen() {
     setSaving(true);
     try {
       await saveProfile(user, getToken, draft);
-      router.replace('/home');
+      router.replace({ pathname: '/home', params: { welcome: '1' } });
     } catch (error) {
       if (__DEV__) console.warn('[profile] save failed', error);
       Alert.alert('Couldn’t save your profile', 'Check your connection and try again.');

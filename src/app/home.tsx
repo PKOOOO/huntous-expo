@@ -1,9 +1,10 @@
 import { useAuth, useUser } from '@clerk/expo';
-import { router, useFocusEffect } from 'expo-router';
+import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { WelcomeSheet } from '@/components/home/welcome-sheet';
 import { PrimaryButton } from '@/components/primary-button';
 import { Palette, Radius, Typography } from '@/constants/theme';
 import { useGetToken } from '@/hooks/use-get-token';
@@ -53,6 +54,9 @@ export default function HomeScreen() {
   const getToken = useGetToken();
   const { user } = useUser();
   const [hostState, setHostState] = useState<HostState>(null);
+  // Kit screen 28: the "You're all set" sheet, shown once when arriving from profile setup.
+  const { welcome } = useLocalSearchParams<{ welcome?: string }>();
+  const [showWelcome, setShowWelcome] = useState(welcome === '1');
 
   useFocusEffect(
     useCallback(() => {
@@ -71,6 +75,15 @@ export default function HomeScreen() {
         </Text>
       </View>
       <HostCard state={hostState} />
+      <WelcomeSheet
+        visible={showWelcome}
+        firstName={user?.firstName}
+        onClose={() => {
+          setShowWelcome(false);
+          // Drop the param so the sheet doesn't come back on reload / back navigation.
+          router.setParams({ welcome: undefined });
+        }}
+      />
       <PrimaryButton
         title="Sign out"
         size="md"

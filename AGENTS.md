@@ -43,7 +43,7 @@ Docs: https://docs.expo.dev/eas/index.md
 
 Huntouse Real Estate App (Project Brief & Context)
 
-> Pick-up notes so we can resume without re-explaining. Last updated: 2026-10-04.
+> Pick-up notes so we can resume without re-explaining. Last updated: 2026-10-04 (session paused — see §9 "NEXT SESSION START HERE").
 > When you come back, open Claude Code in `~/projects/huntouse` and say: "Read AGENTS.md and let's continue."
 > Product name = **Huntouse**. ("Livana" is only the Figma visual reference kit, not the product.)
 >
@@ -396,8 +396,8 @@ PUBLIC profile exists — what's missing is the agent's OWN dashboard.
 
 ## 7. OPEN QUESTIONS to answer next session
 
-1. **Rental type:** short-stay (nightly, Airbnb-like) / long-term lease (monthly, applications
-   + contracts) / both? (Affects booking + owner screens heavily.)
+1. ~~Rental type~~ → RESOLVED (2026-10-04): **long-term monthly first**; keep the data model
+   ready for short stays later.
 2. **Payments:** does the app take payments/escrow or just connect people (inquiry-only)?
    NOTE: Security is founding priority #1 → escrow / "don't pay before you view" is strongly
    aligned with the vision. Kenya market → consider **M-Pesa** + KES, not just Stripe.
@@ -427,6 +427,7 @@ consumer slice.
 ## 8. How to resume
 
 - Build is IN PROGRESS. Read §9 (current state) and §10 (auth/backend) first.
+- **Session paused 2026-10-04. Resume at §9 → "NEXT SESSION START HERE".**
 - Figma MCP plugin must be connected (user ran `/plugin` → figma auth). If Figma access
   breaks, run the `whoami` Figma tool to debug.
 - Run the app: `npx expo start` (email auth works in Expo Go). Web export for quick visual
@@ -504,10 +505,60 @@ consumer slice.
 12. **Phase B confirmed on a real phone (2026-10-04):** piusdev67@gmail.com (Expo app) submitted
     host verification with real camera uploads → hardhaven4@gmail.com approved it in `/admin`
     → app showed "You're verified". Phase B is DONE.
+13. **Kit screen 28 "Home-Welcome" (2026-10-04):** the "You're all set, {firstName}! 🎉" bottom
+    sheet (`src/components/home/welcome-sheet.tsx`, Figma 4344:10282) — 70% overlay, grabber,
+    reused `assets/images/auth/confetti.svg` (same 244×210 kit group), new
+    `assets/images/home/welcome-villa.png`. Shown once: profile-setup finish navigates to
+    `/home?welcome=1`; closing clears the param. Visually verified vs Figma. The Home *behind*
+    it (kit 29: search, categories, promo, popular rentals) is NOT built — needs listings; the
+    "15% off first rent" promo is a business decision, left out until a real offer exists.
 
 **Next up:** user restarts servers → lower Clerk password min to 8 → phone test (sign-up,
 profile save, Google/Apple) → commit huntouse-api → Home (kit 28–29) → Phase 3 (roles in app,
 owner/agent verification, admin dashboard).
+
+
+### ▶ NEXT SESSION START HERE (paused 2026-10-04)
+
+**State:** Auth, profile setup, host verification (Phase B) and the Home-Welcome sheet are DONE
+and phone-tested. App repo committed ("ede"). **huntouse-api is NOT committed** (only the
+create-next-app commit) — commit it first (leave out `.agents/ .claude/ .windsurf/
+skills-lock.json` unless wanted; `.env.local` is git-ignored).
+
+**Accounts:** hardhaven4@gmail.com = ADMIN (web `/admin`); piusdev67@gmail.com = SEEKER+OWNER
+(app test, verified owner); piuskhainjaa@gmail.com = SEEKER.
+
+**Dev setup to start:** API `pnpm dev` in `~/Desktop/huntouse-api` (port **3000**); ngrok
+`https://worried-london-steedlike.ngrok-free.dev` → 3000 (if the URL changes, update the Clerk
+webhook endpoint + `EXPO_PUBLIC_API_URL` in the app's `.env.local`); app `npx expo start`.
+
+**Next task = LISTINGS (option A), decisions locked:**
+- Long-term **monthly** rentals; **rentals only** in the wizard (keep `purpose RENT|SALE` in
+  the model); **admin approves** before live; photos **min 5 / max 20**, first = cover.
+- Backend: `Listing` (purpose, listerType OWNER|AGENT + agency, propertyType, title,
+  description, county, area/estate, private exact lat/lng (seekers see area only), bedrooms,
+  bathrooms, size, furnished, availableFrom, monthlyRentKes, depositKes, serviceChargeKes,
+  amenities[], **moderation status** DRAFT→PENDING_REVIEW→LIVE|REJECTED→ARCHIVED,
+  **availability** VACANT|TAKEN (+ `availabilityUpdatedAt`, one-tap toggle), views/saves/
+  inquiries counters from day one), `ListingPhoto` (ordered, public bucket),
+  `ListingDocument` (per-listing ownership proof, PRIVATE kyc bucket; sale mandate later).
+  API: create/edit/submit, my listings, availability toggle, public browse of LIVE listings.
+  Admin: Listings queue + detail (photos, docs) + approve / reject-with-reason.
+- App (verified owners/agents only): create-listing wizard (type & title → location
+  [county, area, map pin] → details → amenities → photos → price → ownership proof (owners) →
+  review & submit), **My listings** (Drafts / In review / Live / Rejected) with one-tap
+  Vacant/Taken + edit; Home host card → "List a property" once verified.
+- Not decided/enforced yet: free-tier limit (1–2 active listings, §1c), Pro.
+
+**User to-do before photo uploads work:** create R2 bucket **`huntouse-listings`** (Standard),
+enable its **R2.dev public URL** (custom domain for prod), add that bucket to the R2 API token
+(Object Read & Write), and put `listings_public_url=https://pub-….r2.dev` in `~/Desktop/r2`.
+Build backend + admin first, then the app wizard, then My listings — test each end to end.
+
+**Other pending (from earlier):** Clerk password minimum → 8 (dashboard); Clerk session token
+claim `{ "roles": "{{user.public_metadata.roles}}" }` (dashboard); rotate the exposed R2 +
+Neon credentials before production; optional `sslmode=verify-full`; Home (kit 29) + discovery
+(28–42) after listings; notifications on approve/reject.
 
 ---
 
